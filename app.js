@@ -4,12 +4,9 @@ const chalk = require("chalk");
 const path = require("path");
 const debug = require("debug")("app");
 const bodyParser = require("body-parser");
-<<<<<<< HEAD
-=======
 
 // My libraries
 const globomanticsRouter = require("./src/routes/globomanticsRoutes");
->>>>>>> feature/routing
 
 const PORT = process.env.PORT || 3000;
 const app = express();

@@ -1,4 +1,35 @@
 module.exports = () => {
+  const getHouses = (req, res) => {
+    const houses = [
+      {
+        address: "12 Valley of Kings, Geneva",
+        country: "Switzerland",
+        price: 900000,
+      },
+      {
+        address: "89 Road of Forks, Bern",
+        country: "Switzerland",
+        price: 500000,
+      },
+      {
+        address: "Grote Hof 12, Amsterdam",
+        country: "The Netherlands",
+        price: 200500,
+      },
+      {
+        address: "Meel Kade 321, The Hague",
+        country: "The Netherlands",
+        price: 259500,
+      },
+      {
+        address: "Oude Gracht 32, Utrecht",
+        country: "The Netherlands",
+        price: 400500,
+      },
+    ];
+
+    res.render("index", { houses });
+  };
   const postAddHouse = (req, res) => {
     res.render("/");
     // /house/add
@@ -10,7 +41,22 @@ module.exports = () => {
   };
 
   const getAllBids = (req, res) => {
-    res.render("globomantics/bids");
+    const bids = [
+      {
+        bidder: "Sonia Reading",
+        amount: 200000,
+      },
+      {
+        bidder: "Dick Johnson",
+        amount: 202400,
+      },
+      {
+        bidder: "Roland",
+        amount: 203000,
+      },
+    ];
+
+    res.render("globomantics/bids", { bids });
     // /house/{houseId}/bids
   };
 
@@ -25,6 +71,7 @@ module.exports = () => {
   };
 
   return {
+    getHouses,
     postAddHouse,
     postDeleteHouse,
     getAllBids,

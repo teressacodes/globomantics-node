@@ -5,6 +5,7 @@ const controller = require("../controllers/globomanticsController");
 
 module.exports = () => {
   const {
+    getHouses,
     postAddHouse,
     postDeleteHouse,
     getAllBids,
@@ -12,6 +13,7 @@ module.exports = () => {
     postDeleteBid,
   } = controller();
 
+  router.route("/").get(getHouses);
   router.route("/").post(postAddHouse);
   router.route("/").post(postDeleteHouse);
   router.route("/bids").get(getAllBids);

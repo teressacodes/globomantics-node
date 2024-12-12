@@ -3,13 +3,43 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Routing Index Page</title>
+    <title>Globomantics</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/globomantics.css" />
   </head>
   <body>
-    <h1>Houses currently on the market</h1>
-    <a href="/bids">Bids</a>
-    <br />
-    <a href="/">Add House</a><br />
-    <a href="/">Delete House</a>
+    <%- include('shared/header') %>
+    <div class="container">
+      <p>Houses currently on the market</p>
+      <div class="row font-weight-bold">
+        <div class="column">Address</div>
+        <div class="column"></div>
+        <div class="column">Country</div>
+        <div class="column">Asking Price</div>
+        <div class="column action"></div>
+      </div>
+      <% houses.forEach(house => { %>
+      <div class="row">
+        <div class="column"><%= house.address %></div>
+        <div class="column"></div>
+        <div class="column"><%= house.country %></div>
+        <div
+          class="column"
+          style="<%= parseFloat(house.price) >= 500000 ? 'color: red;' : '' %>"
+        >
+          $<%= Number(house.price).toLocaleString('en-US') %>
+        </div>
+        <div class="column action">
+          <button class="btn btn-danger">Delete</button>
+        </div>
+      </div>
+      <% }); %>
+      <div class="row">
+        <button class="btn btn-primary add-btn">Add</button>
+      </div>
+    </div>
   </body>
 </html>

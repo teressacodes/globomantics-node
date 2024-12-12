@@ -4,12 +4,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bids of Specific House Display</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/globomantics.css" />
   </head>
-  <body>
-    <h1>Bids of house displayed here</h1>
-    <a href="/">Home</a>
-    <br />
-    <a href="/bids">Add Bid</a><br />
-    <a href="/bids">Delete Bid</a>
+
+  <body class="bids-body">
+    <%- include('../shared/header.ejs') %>
+    <div class="container-bids">
+      <div class="property-image mr-4">
+        <img
+          src="../images/GloboHouse.jpeg"
+          alt="Photo of house: 12 Valley of Kings, Geneva"
+        />
+      </div>
+      <div class="property-details flex-grow-1">
+        <h5>Switzerland</h5>
+        <h3>12 Valley of Kings, Geneva</h3>
+        <h2>$900,000</h2>
+        <p class="pbids">
+          A superb detached Victorian property on one of the town's finest
+          roads, within easy reach of Barnes Village. The property has in excess
+          of 6000 sq/ft of accommodation, a driveway and landscaped garden.
+        </p>
+        <div class="bids-container">
+          <div class="bids-row header">
+            <div class="bids-column action"></div>
+            <div class="bids-column">Bidder</div>
+            <div class="bids-column">Amount</div>
+          </div>
+          <% bids.forEach(bid => { %>
+          <div class="bids-row">
+            <div class="bids-column action">
+              <button class="btn btn-danger">Delete</button>
+            </div>
+            <div class="bids-column"><%= bid.bidder %></div>
+            <div class="bids-column">$<%= Number(bid.amount).toLocaleString('en-US') %></div>
+          </div>
+          <% }); %>
+        <div class="bidder">
+          <input class="bidperson" type="text" placeholder="Bidder" />
+          <input class="bidamount" type="number" placeholder="0" />
+          <button class="btn btn-primary bidder-btn">Add</button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
