@@ -43,6 +43,10 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
+app.get("/house/add", (req, res) => {
+  res.render("index");
+});
+
 app.listen(PORT, () => {
   debug(`listening on port ${chalk.blue(PORT)}`);
 });

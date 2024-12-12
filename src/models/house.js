@@ -9,12 +9,12 @@ const HouseSchema = new mongoose.Schema({
     },
     askingPrice: { type: Number, required: true },
     description: { type: String, required: true },
-    image: { type: String, required: true },
+    image: { type: String, required: false },
   },
   bids: [
     {
-      amount: { type: Number, required: true },
-      name: { type: String, required: true },
+      amount: { type: Number, required: false },
+      name: { type: String, required: false },
     },
   ],
 });

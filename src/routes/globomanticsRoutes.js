@@ -14,8 +14,8 @@ module.exports = () => {
   } = controller();
 
   router.route("/").get(getHouses);
-  router.route("/").post(postAddHouse);
-  router.route("/").post(postDeleteHouse);
+  router.route("/").get(postAddHouse);
+  router.route("/house/add").get(postAddHouse);
   router.route("/bids").get(getAllBids);
   router.route("/bids").post(postAddBid);
   router.route("/bids").post(postDeleteBid);
