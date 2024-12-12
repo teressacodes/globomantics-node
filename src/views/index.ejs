@@ -36,7 +36,13 @@
           $<%= Number(house.houseInfo.askingPrice).toLocaleString('en-US') %>
         </div>
         <div class="column action">
-          <button class="btn btn-danger">Delete</button>
+          <form
+            action="/house/<%= house._id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
         </div>
       </div>
       <% }); %>

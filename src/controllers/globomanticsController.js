@@ -125,8 +125,16 @@ module.exports = () => {
   };
 
   const postDeleteHouse = (req, res) => {
-    res.render("/");
-    // /house/{houseId}/delete
+    const houseId = req.params.houseId;
+
+    (async () => {
+      try {
+        await HouseModel.findByIdAndDelete(houseId);
+      } catch (error) {
+        console.error(`Error deleting house with ID ${houseId}:`, error);
+      }
+      res.redirect("/");
+    })();
   };
 
   const getAllBids = (req, res) => {
