@@ -4,6 +4,7 @@ const chalk = require("chalk");
 const path = require("path");
 const debug = require("debug")("app");
 const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
 
 // My libraries
 const globomanticsRouter = require("./src/routes/globomanticsRoutes");
@@ -23,6 +24,19 @@ app.use(bodyParser.json());
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
+//Connect app to mongoDB
+mongoose.connect(
+  "mongodb+srv://tessellison10:IRJVLoIEO6SNTgI6@cluster0.p6lyk.mongodb.net/houses"
+);
+const db = mongoose.connection;
+
+db.on("error", console.error.bind(console, "Connection Error:"));
+
+db.once("open", () => {
+  debug(chalk.bgBlue.whiteBright.bold("MongoDB connected successfully"));
+});
+
+//Routes
 app.use("/", globomanticsRouter());
 
 app.get("/", (req, res) => {
