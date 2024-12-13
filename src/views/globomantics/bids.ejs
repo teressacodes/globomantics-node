@@ -43,16 +43,18 @@
             <div class="bids-column action">
               <button class="btn btn-danger">Delete</button>
             </div>
-            <div class="bids-column"><%= bid.bidder %></div>
+            <div class="bids-column"><%= bid.name %></div>
             <div class="bids-column">$<%= Number(bid.amount).toLocaleString('en-US') %></div>
           </div>
           <% }); %>
           <% } %>
-        <div class="bidder">
-          <input class="bidperson" type="text" placeholder="Bidder" />
-          <input class="bidamount" type="number" placeholder="0" />
-          <button class="btn btn-primary bidder-btn">Add</button>
-        </div>
+          <div class="bidder">
+            <form method="POST" action="/house/<%= houseId %>/bid/add">
+              <input class="bidperson" name="name" type="text" placeholder="Bidder" required />
+              <input class="bidamount" name="amount" type="number" placeholder="0" required />
+              <button class="btn btn-primary bidder-btn" type="submit">Add</button>
+            </form>
+          </div>
       </div>
     </div>
   </body>

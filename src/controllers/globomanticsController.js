@@ -92,6 +92,7 @@ module.exports = () => {
       res.render("index", { houses });
     })();
   };
+
   const postAddHouse = (req, res) => {
     const priceOptions = [
       250000, 350000, 450000, 500000, 600000, 850000, 1000000, 1200000,
@@ -141,14 +142,20 @@ module.exports = () => {
 
       res.render("globomantics/bids", {
         houseInfo: house.houseInfo,
+        houseId: house._id,
         bids: house.bids,
       });
     })();
   };
 
-  const postAddBid = (req, res) => {
-    res.render("globomantics/bids");
-    // /house/{houseId}/bid/add
+  const postAddBid = async (req, res) => {
+    const houseId = req.params.houseId;
+    const house = await HouseModel.findById(houseId);
+
+    const { name, amount } = req.body;
+    house.bids.push({ name, amount });
+    await house.save();
+    res.redirect(`/house/${houseId}/bids`);
   };
 
   const postDeleteBid = (req, res) => {
