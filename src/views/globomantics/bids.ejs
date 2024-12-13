@@ -41,7 +41,13 @@
             <% bids.forEach(bid => { %>
           <div class="bids-row">
             <div class="bids-column action">
-              <button class="btn btn-danger">Delete</button>
+              <form
+            action="/house/<%= houseId %>/bid/<%= bid._id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
             </div>
             <div class="bids-column"><%= bid.name %></div>
             <div class="bids-column">$<%= Number(bid.amount).toLocaleString('en-US') %></div>

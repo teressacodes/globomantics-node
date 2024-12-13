@@ -158,9 +158,17 @@ module.exports = () => {
     res.redirect(`/house/${houseId}/bids`);
   };
 
-  const postDeleteBid = (req, res) => {
-    res.render("globomantics/bids");
-    ///house/{houseId}/bid/{bidId}/delete
+  const postDeleteBid = async (req, res) => {
+    const houseId = req.params.houseId;
+    const bidId = req.params.bidId;
+
+    const house = await HouseModel.findById(houseId);
+    const bidIndex = house.bids.findIndex(
+      (bid) => bid._id.toString() === bidId
+    );
+    house.bids.splice(bidIndex, 1);
+    await house.save();
+    res.redirect(`/house/${houseId}/bids`);
   };
 
   return {

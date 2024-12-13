@@ -18,7 +18,7 @@ module.exports = () => {
   router.route("/house/:houseId/delete").post(postDeleteHouse);
   router.route("/house/:houseId/bids").get(getAllBids);
   router.route("/house/:houseId/bid/add").post(postAddBid);
-  router.route("/bids").post(postDeleteBid);
+  router.route("/house/:houseId/bid/:bidId/delete").post(postDeleteBid);
 
   return router;
 };
