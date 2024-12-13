@@ -128,33 +128,22 @@ module.exports = () => {
     const houseId = req.params.houseId;
 
     (async () => {
-      try {
-        await HouseModel.findByIdAndDelete(houseId);
-      } catch (error) {
-        console.error(`Error deleting house with ID ${houseId}:`, error);
-      }
+      await HouseModel.findByIdAndDelete(houseId);
       res.redirect("/");
     })();
   };
 
   const getAllBids = (req, res) => {
-    const bids = [
-      {
-        bidder: "Sonia Reading",
-        amount: 200000,
-      },
-      {
-        bidder: "Dick Johnson",
-        amount: 202400,
-      },
-      {
-        bidder: "Roland",
-        amount: 203000,
-      },
-    ];
+    const houseId = req.params.houseId;
 
-    res.render("globomantics/bids", { bids });
-    // /house/{houseId}/bids
+    (async () => {
+      const house = await HouseModel.findOne({ _id: houseId });
+
+      res.render("globomantics/bids", {
+        houseInfo: house.houseInfo,
+        bids: house.bids,
+      });
+    })();
   };
 
   const postAddBid = (req, res) => {
