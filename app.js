@@ -5,6 +5,7 @@ const path = require("path");
 const debug = require("debug")("app");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const dotenv = require("dotenv");
 
 // My libraries
 const globomanticsRouter = require("./src/routes/globomanticsRoutes");
@@ -20,14 +21,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 // parse application/json
 app.use(bodyParser.json());
+dotenv.config();
+
+const url = process.env.MONGODB_URI;
 
 app.set("views", "./src/views");
 app.set("view engine", "ejs");
 
 //Connect app to mongoDB
-mongoose.connect(
-  "mongodb+srv://tessellison10:IRJVLoIEO6SNTgI6@cluster0.p6lyk.mongodb.net/houses"
-);
+mongoose.connect(url);
 const db = mongoose.connection;
 
 db.on("error", console.error.bind(console, "Connection Error:"));

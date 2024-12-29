@@ -29,10 +29,7 @@
         </div>
         <div class="column"></div>
         <div class="column"><%= house.houseInfo.address.country %></div>
-        <div
-          class="column"
-          style="<%= parseFloat(house.houseInfo.askingPrice) >= 500000 ? 'color: red;' : '' %>"
-        >
+        <div class="column">
           $<%= Number(house.houseInfo.askingPrice).toLocaleString('en-US') %>
         </div>
         <div class="column action">

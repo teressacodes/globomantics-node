@@ -1,4 +1,5 @@
 const HouseModel = require("../models/house");
+const { check, validationResult } = require("express-validator");
 
 module.exports = () => {
   const randomInt = (min, max) => {
@@ -89,6 +90,16 @@ module.exports = () => {
   const getHouses = (req, res) => {
     (async () => {
       const houses = await HouseModel.find();
+
+      // Add highest bid to each house
+      houses.forEach((house) => {
+        const highestBid =
+          house.bids.length > 0
+            ? Math.max(...house.bids.map((bid) => bid.amount))
+            : 0;
+        house.highestBid = highestBid; // Store highest bid
+      });
+
       res.render("index", { houses });
     })();
   };
@@ -144,18 +155,51 @@ module.exports = () => {
         houseInfo: house.houseInfo,
         houseId: house._id,
         bids: house.bids,
+        errors: [],
       });
     })();
   };
 
-  const postAddBid = async (req, res) => {
-    const houseId = req.params.houseId;
-    const house = await HouseModel.findById(houseId);
+  const postAddBid = (req, res) => {
+    // Validation logic using check()
+    check("name")
+      .isLength({ min: 3 })
+      .withMessage("Name must be at least 3 characters long")
+      .run(req);
+    check("amount")
+      .isInt({ gt: 0 })
+      .withMessage("Amount must be a whole integer greater than 0")
+      .run(req);
 
-    const { name, amount } = req.body;
-    house.bids.push({ name, amount });
-    await house.save();
-    res.redirect(`/house/${houseId}/bids`);
+    // Validation check
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      const houseId = req.params.houseId;
+      HouseModel.findById(houseId).then((house) => {
+        return res.render("globomantics/bids", {
+          houseInfo: house.houseInfo,
+          houseId: house._id,
+          bids: house.bids,
+          errors: errors.array(), // Pass validation errors to the view
+        });
+      });
+    } else {
+      // If validation passes, add the bid to the house
+      const houseId = req.params.houseId;
+      HouseModel.findById(houseId).then((house) => {
+        const { name, amount } = req.body;
+        house.bids.push({ name, amount });
+        house
+          .save()
+          .then(() => {
+            res.redirect(`/house/${houseId}/bids`);
+          })
+          .catch((error) => {
+            console.log("Error saving bid:", error);
+            res.status(500).send("Error saving bid");
+          });
+      });
+    }
   };
 
   const postDeleteBid = async (req, res) => {
