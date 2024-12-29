@@ -1,0 +1,162 @@
+/* Header */
+.header {
+  padding: 1rem 0;
+}
+
+.header-img {
+  max-width: 250px !important;
+}
+
+.slogan {
+  color: darkorange;
+  font-style: italic;
+  font-size: x-large;
+}
+
+.container-fluid {
+  max-width: 1200px;
+}
+
+/* index */
+
+body {
+  text-align: center;
+  margin: 20px;
+}
+.container {
+  margin: 20px auto;
+  max-width: 1200px;
+}
+.row {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+.row:first-child {
+  border-bottom: none;
+}
+.row:nth-child(2) {
+  border-bottom: 1px solid black;
+}
+.row .column {
+  flex: 1;
+  text-align: left;
+}
+.row .column.action {
+  text-align: center;
+}
+.add-btn {
+  margin-top: 20px;
+  margin-left: 0;
+  text-align: left;
+}
+.container p {
+  color: darkorange;
+}
+
+/* bids */
+.pbids {
+  color: black !important;
+}
+
+.bids-body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  margin: 2rem auto;
+}
+
+.property-image {
+  flex-shrink: 0;
+  max-width: 50%;
+  margin-right: 2rem;
+}
+
+.property-image img {
+  width: 100%;
+  object-fit: cover;
+}
+
+.property-details {
+  flex-grow: 1;
+}
+
+.property-details h2,
+.property-details h3,
+.property-details h5,
+.property-details p {
+  text-align: left;
+}
+
+.property-details h3 {
+  font-weight: 550;
+}
+.property-details p {
+  text-align: left;
+}
+
+.property-details h2 {
+  color: darkorange;
+}
+
+.container-bids {
+  display: flex;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 2rem auto;
+}
+
+.container-bids .bidder {
+  flex-grow: 1;
+  text-align: left !important;
+  margin-top: 1rem;
+}
+
+.bidperson {
+  flex-grow: 1;
+  margin-right: 2rem;
+}
+
+.bidamount {
+  flex-grow: 1;
+  margin-right: 2rem;
+  margin-left: 2rem;
+}
+
+.bidder-btn {
+  flex-grow: 1;
+  margin-left: 2rem;
+}
+
+.bids-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.bids-row {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+  text-align: left;
+}
+
+.bids-row.header {
+  font-weight: bold;
+}
+
+.bids-column {
+  flex: 1;
+  text-align: left;
+  padding: 0 10px;
+  margin-left: 4rem;
+}
+
+.bids-column.action {
+  text-align: left;
+  flex: 0 0 100px;
+  margin-left: 0 !important;
+}

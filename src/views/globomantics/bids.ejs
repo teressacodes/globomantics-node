@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bids of Specific House Display</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/globomantics.css" />
+  </head>
+
+  <body class="bids-body">
+    <%- include('../shared/header.ejs') %>
+    <div class="container-bids">
+      <div class="property-image mr-4">
+        <img
+          src="/images/<%= houseInfo.image ? houseInfo.image : 'photonotfound.jpeg' %>""
+          alt="Photo of house: <%= houseInfo.address.street %>, <%= houseInfo.address.city %>"
+        />
+      </div>
+      <div class="property-details flex-grow-1">
+        <h5><%= houseInfo.address.country %></h5>
+        <h3><%= houseInfo.address.street %>, <%= houseInfo.address.city %></h3>
+        <h2>$<%= Number(houseInfo.askingPrice).toLocaleString('en-US') %></h2>
+        <p class="pbids">
+          <%= houseInfo.description %>
+        </p>
+        <div class="bids-container">
+          <div class="bids-row header">
+            <div class="bids-column action"></div>
+            <div class="bids-column">Bidder</div>
+            <div class="bids-column">Amount</div>
+          </div>
+          <% if (bids.length === 0) { %>
+            <div class="bids-row">
+              <div class="bids-column" colspan="3">No bids available for this house.</div>
+            </div>
+            <% } else { %>
+            <% bids.forEach(bid => { %>
+          <div class="bids-row">
+            <div class="bids-column action">
+              <form
+            action="/house/<%= houseId %>/bid/<%= bid._id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+            </div>
+            <div class="bids-column"><%= bid.name %></div>
+            <div class="bids-column">$<%= Number(bid.amount).toLocaleString('en-US') %></div>
+          </div>
+          <% }); %>
+          <% } %>
+          <div class="bidder">
+            <form method="POST" action="/house/<%= houseId %>/bid/add">
+              <input class="bidperson" name="name" type="text" placeholder="Bidder" required />
+              <input class="bidamount" name="amount" type="number" placeholder="0" required />
+              <button class="btn btn-primary bidder-btn" type="submit">Add</button>
+            </form>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

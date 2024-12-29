@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Globomantics</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/css/globomantics.css" />
+  </head>
+  <body>
+    <%- include('shared/header') %>
+    <div class="container">
+      <p>Houses currently on the market</p>
+      <div class="row font-weight-bold">
+        <div class="column">Address</div>
+        <div class="column"></div>
+        <div class="column">Country</div>
+        <div class="column">Asking Price</div>
+        <div class="column action"></div>
+      </div>
+      <% houses.forEach(house => { %>
+      <div class="row">
+        <div class="column">
+          <%= house.houseInfo.address.street %>, <%=
+          house.houseInfo.address.city %>
+        </div>
+        <div class="column"></div>
+        <div class="column"><%= house.houseInfo.address.country %></div>
+        <div class="column">
+          $<%= Number(house.houseInfo.askingPrice).toLocaleString('en-US') %>
+        </div>
+        <div class="column action">
+          <form
+            action="/house/<%= house._id %>/bids"
+            method="GET"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-primary">View</button>
+          </form>
+          <form
+            action="/house/<%= house._id %>/delete"
+            method="POST"
+            style="display: inline"
+          >
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </div>
+      </div>
+      <% }); %>
+      <div class="row">
+        <a href="/house/add"
+          ><button class="btn btn-primary add-btn">Add</button></a
+        >
+      </div>
+    </div>
+  </body>
+</html>
